@@ -1,0 +1,9 @@
+                                 /--C'-- backup 
+                                /         egress
+                               /                
+Ingress ───A─── LSR ───B─── LSR ───C─── egress  
+  LER            A           B                  
+                            PLR                 
+                               \                
+                                \--C''-- backup 
+                                          egress

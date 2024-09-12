@@ -21,3 +21,4 @@ draft-ihle-mpls-mna-stateless-egress-protection.xml
 package-lock.json
 report.xml
 !requirements.txt
+!drawings/*.txt
