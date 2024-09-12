@@ -19,11 +19,11 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "MNA for Stateless MPLS Egress Protection"
+abbrev: "SMEP"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-ihle-mpls-mna-stateless-egress-protection
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -45,9 +45,9 @@ venue:
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Fabian Ihle
+    organization: University of Tuebingen
+    email: fabian.ihle@uni-tuebingen.de
 
 normative:
 
@@ -66,10 +66,11 @@ TODO Abstract
 TODO Introduction
 
 
-# Conventions and Definitions
+## Terminology
 
 {::boilerplate bcp14-tagged}
 
+# MPLS Network Action for Stateless Egress Protection
 
 # Security Considerations
 
