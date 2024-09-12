@@ -30,7 +30,7 @@ author:
  -
     fullname: Michael Menth
     organization: University of Tuebingen
-    email: michael.menth@uni-tuebingen.de  
+    email: michael.menth@uni-tuebingen.de
 
 normative:
 
