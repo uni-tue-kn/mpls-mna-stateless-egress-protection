@@ -13,7 +13,17 @@ Expires: 16 March 2025                                 12 September 2024
 
 Abstract
 
-   TODO Abstract
+   The MPLS Network Action (MNA) framework provides a general mechanism
+   for the encoding and processing of network actions and their data.
+
+   The MPLS Egress Protection Framework specifies a fast reroute
+   mechanism for protecting IP/MPLS services.  To that end backup
+   tunnels have to be signaled to the Point of Local Repair (PLR).
+
+   This document defines the encoding for the Stateless MPLS Egress
+   Protection (SMEP) network action.  The SMEP network action protects
+   egress routers by providing an alternative MPLS egress label in-
+   stack.  For SMEP, no signaling of protection tunnels is required.
 
 About This Document
 
@@ -69,17 +79,44 @@ Table of Contents
    1.  Introduction
      1.1.  Terminology
    2.  MPLS Network Action for Stateless Egress Protection
-   3.  Security Considerations
-   4.  IANA Considerations
-   5.  References
-     5.1.  Normative References
-     5.2.  Informative References
+     2.1.  Encoding
+     2.2.  Processing
+   3.  Example
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
 1.  Introduction
 
-   TODO Introduction
+   MPLS egress protection in [RFC8679] establishes backup tunnels for
+   egress routers on an egress failure, i.e., on a node or a link
+   failure.  This is referred to as egress protection.  The protection
+   mechanism relies on a Point of Local Repair (PLR) that performs local
+   failure detection and local repair.  Usually, this PLR is the
+   penultimate router.  On an egress failure, packets are rerouted using
+   fast reroute (FRR) to an alternative egress router.  The PLR must
+   maintain a list of bypass tunnels and the bypass forwarding state on
+   a per-transport-tunnel basis.  The bypass tunnels are signaled using
+   existing mechanisms, i.e., via an IGP, or topology-driven label
+   distribution protocols such as LDP.
+
+   With the MPLS Network Action (MNA) framework, network actions are
+   encoded in the MPLS stack.  [I-D.ietf-mpls-mna-hdr] defines the
+   encoding of such network actions and their data in the MPLS stack.
+   Those network actions are processed by all nodes on a path (hop-by-
+   hop), by only selected nodes, or on an ingress-to-egress basis.
+
+   This document defines the Stateless MPLS Egress Protection (SMEP)
+   network action.  With SMEP, egress bypass tunnels are carried in a
+   network action in the MPLS stack.  The ingress router pushes the MPLS
+   stack containing the SMEP network action.  On an egress failure, the
+   bypass MPLS label in the network action is used to protect the egress
+   tunnel.  No signaling is required for this approach and no state must
+   be kept in the PLR.
 
 1.1.  Terminology
 
@@ -94,17 +131,132 @@ Table of Contents
 
 2.  MPLS Network Action for Stateless Egress Protection
 
-3.  Security Considerations
+2.1.  Encoding
 
-   TODO Security
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |Opcode=SMEP  |    Bypass MPLS Label (BML)    |S|  BML  | NAL=0 |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-4.  IANA Considerations
+               Figure 1: MNA for Stateless Egress Protection.
 
-   This document has no IANA actions.
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |Opcode=SMEP  |    Bypass MPLS Label (BML)    |S|  BML  | NAL=1 |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |1|00              Bypass MPLS Label (BML)    |S|     Data=0    |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-5.  References
+       Figure 2: MNA for Stateless Egress Protection using a list of
+                               bypass labels.
 
-5.1.  Normative References
+   The network action for stateless MPLS egress protection is encoded as
+   follows:
+
+   *  Network Action Indication: The SMEP network action is indicated by
+      opcode TBA1.
+
+   *  Format: The SMEP network action MUST be encoded using a Format C
+      LSE as defined in [I-D.ietf-mpls-mna-hdr], see Figure 1.
+      Optionally, a list of bypass MPLS labels MAY be carried as Format
+      D LSE, see Figure 2.  In the Format D LSE, the bypass MPLS label
+      is encoded in the least-significant bits of the first data field.
+      The two most-significant bits of the first data field, and the 8
+      bits of the second data field MUST be set to zero.
+
+   *  Scope: The SMEP network action is valid only in the select scope.
+
+   *  Ancillary Data: The SMEP network action requires 20 bits of in-
+      stack ancillary data to encode the bypass MPLS label.  The most-
+      significant 16 bit of the bypass MPLS label are located in the
+      first data field of an format C LSE.  The least-significant 4 bit
+      are located in the second datafield of an format C LSE.  No post-
+      stack data is required.
+
+2.2.  Processing
+
+   The ingress LER that pushes an SR-MPLS label stack onto a packet
+   includes the bypass MPLS label in a network action.  The bypass MPLS
+   label encodes the SID to an alternative egress router.  The SMEP
+   network action must be placed in the MPLS stack such that the PLR
+   (Point of Local Repair), i.e., the penultimate node, is able to
+   process the network action.  That means the SMEP network action is
+   only processed by the penultimate node using the select scope.  On an
+   egress node failure or an egress link failure the penultimate node
+   MUST use the bypass MPLS label to route traffic to an alternative
+   egress router.  To that end, the data fields in the Format C LSE of
+   the SMEP network actions are concatened to form the 20 bit MPLS
+   label.
+
+3.  Example
+
+   An example topology using MPLS egress protection is shown in
+   Figure 3.  Labels A and B are used to forward to the penultimate
+   router.  From here, three paths are available to an egress node.
+   Labels C, C', and C'' are used to route to one of the egress nodes.
+   If the egress link or router C fails, the PLR can use the bypass
+   tunnel of router C' and C''.  The MPLS stack encoding this
+   functionality is shown in Figure 4.  The Network Action Sub-Stack
+   (NAS) for SMEP contains an Format A LSE to indicate the MNA Sub-Stack
+   and an Format B LSE.  This is required by [I-D.ietf-mpls-mna-hdr].
+   The Format B LSE can contain arbitrary network actions.
+
+                                    /--C'-- backup
+                                   /         egress
+                                  /
+   Ingress ───A─── LSR ───B─── LSR ───C─── egress
+     LER            A           B
+                               PLR
+                                  \
+                                   \--C''-- backup
+                                             egress
+
+     Figure 3: Example network topology with protected egress routers.
+
+    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |      MPLS-Label = A                   | TC  |S|    TTL        |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |      MPLS-Label = B                   | TC  |S|    TTL        |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |      MPLS-Label = C                   | TC  |S|    TTL        |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |      MNA-Label=bSPL (TBA)             | TC  |S|    TTL        |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |   Opcode = *|      Data               |R|IHS|S|U| NASL=2|NAL=0|
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |Opcode = SMEP|  Bypass MPLS Label (BML) = C' |S|  BML  | NAL=1 |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |1|00            Bypass MPLS Label (BML) = C''|S|     Data=0    |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+              Figure 4: Example MPLS stack for above topology.
+
+4.  Security Considerations
+
+   The security issues discussed in [I-D.ietf-mpls-mna-hdr] apply to
+   this document.
+
+5.  IANA Considerations
+
+   This document requests that IANA allocates a new codepoint with the
+   name "Stateless MPLS Egress Protection" in the "Network Action
+   Opcodes Registry".
+
+     +============+==================================+===============+
+     | MNA Opcode | Description                      | Reference     |
+     +============+==================================+===============+
+     | TBA1       | Stateless MPLS Egress Protection | This document |
+     +------------+----------------------------------+---------------+
+
+                   Table 1: SMEP Opcode IANA allocation.
+
+6.  References
+
+6.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -115,7 +267,7 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-5.2.  Informative References
+6.2.  Informative References
 
    [I-D.ietf-mpls-mna-hdr]
               Rajamanickam, J., Gandhi, R., Zigler, R., Song, H., and K.
