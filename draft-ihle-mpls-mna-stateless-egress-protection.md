@@ -9,19 +9,19 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: "Routing"
+workgroup: "Multiprotocol Label Switching"
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: "Multiprotocol Label Switching"
+  type: "Working Group"
+  mail: "mpls@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/mpls/"
+  github: "uni-tue-kn/mpls-mna-stateless-egress-protection"
+  latest: "https://uni-tue-kn.github.io/mpls-mna-stateless-egress-protection/draft-ihle-mpls-mna-stateless-egress-protection.html"
 
 author:
  -
