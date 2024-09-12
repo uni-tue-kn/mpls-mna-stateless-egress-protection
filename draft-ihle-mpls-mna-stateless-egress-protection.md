@@ -51,6 +51,8 @@ TODO Introduction
 
 ## Terminology
 
+This document makes use of the terms defined in {{?RFC8679}} and in {{?I-D.ietf-mpls-mna-hdr}}.
+
 {::boilerplate bcp14-tagged}
 
 # MPLS Network Action for Stateless Egress Protection
