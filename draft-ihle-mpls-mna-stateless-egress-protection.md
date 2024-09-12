@@ -12,9 +12,8 @@ v: 3
 area: "Routing"
 workgroup: "Multiprotocol Label Switching"
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - egress protection
+ - resilience
 venue:
   group: "Multiprotocol Label Switching"
   type: "Working Group"
@@ -28,6 +27,10 @@ author:
     fullname: Fabian Ihle
     organization: University of Tuebingen
     email: fabian.ihle@uni-tuebingen.de
+ -
+    fullname: Michael Menth
+    organization: University of Tuebingen
+    email: michael.menth@uni-tuebingen.de  
 
 normative:
 
