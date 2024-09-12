@@ -23,7 +23,7 @@ title: "MNA for Stateless MPLS Egress Protection"
 abbrev: "SMEP"
 category: info
 
-docname: draft-ihle-mpls-mna-stateless-egress-protection
+docname: draft-ihle-mpls-mna-stateless-egress-protection-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
