@@ -1035,7 +1035,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ihle &amp; Menth</td>
-<td class="center">Expires 16 March 2025</td>
+<td class="center">Expires 21 March 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1048,12 +1048,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ihle-mpls-mna-stateless-egress-protection-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-12" class="published">12 September 2024</time>
+<time datetime="2024-09-17" class="published">17 September 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
-<dd class="intended-status">Informational</dd>
+<dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-16">16 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-03-21">21 March 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1112,7 +1112,7 @@ For SMEP, no signaling of protection tunnels is required.<a href="#section-abstr
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1181,10 +1181,7 @@ For SMEP, no signaling of protection tunnels is required.<a href="#section-abstr
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1272,13 +1269,13 @@ appear in all capitals, as shown here.<a href="#section-1.1-2" class="pilcrow">�
             <p id="section-2.1-4.1.1">Network Action Indication: The SMEP network action is indicated by opcode TBA1.<a href="#section-2.1-4.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-4.2">
-            <p id="section-2.1-4.2.1">Format: The SMEP network action <span class="bcp14">MUST</span> be encoded using a Format C LSE as defined in <span>[<a href="#I-D.ietf-mpls-mna-hdr" class="cite xref">I-D.ietf-mpls-mna-hdr</a>]</span>, see <a href="#fig-smep-encoding" class="auto internal xref">Figure 1</a>. Optionally, a list of bypass MPLS labels <span class="bcp14">MAY</span> be carried as Format D LSE, see <a href="#fig-smep-encoding_ad" class="auto internal xref">Figure 2</a>. In the Format D LSE, the bypass MPLS label is encoded in the least-significant bits of the first data field. The two most-significant bits of the first data field, and the 8 bits of the second data field <span class="bcp14">MUST</span> be set to zero.<a href="#section-2.1-4.2.1" class="pilcrow">¶</a></p>
+            <p id="section-2.1-4.2.1">Format: The SMEP network action <span class="bcp14">MUST</span> be encoded using a Format C LSE as defined in <span>[<a href="#I-D.ietf-mpls-mna-hdr" class="cite xref">I-D.ietf-mpls-mna-hdr</a>]</span>, see <a href="#fig-smep-encoding" class="auto internal xref">Figure 1</a>. Optionally, a list of bypass MPLS labels <span class="bcp14">MAY</span> be carried as Format D LSE, see <a href="#fig-smep-encoding_ad" class="auto internal xref">Figure 2</a>.<a href="#section-2.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-4.3">
             <p id="section-2.1-4.3.1">Scope: The SMEP network action is valid only in the select scope.<a href="#section-2.1-4.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-2.1-4.4">
-            <p id="section-2.1-4.4.1">Ancillary Data: The SMEP network action requires 20 bits of in-stack ancillary data to encode the bypass MPLS label. The most-significant 16 bit of the bypass MPLS label are located in the first data field of an format C LSE. The least-significant 4 bit are located in the second datafield of an format C LSE. No post-stack data is required.<a href="#section-2.1-4.4.1" class="pilcrow">¶</a></p>
+            <p id="section-2.1-4.4.1">Ancillary Data: The SMEP network action requires 20 bits of in-stack ancillary data to encode the bypass MPLS label. The most-significant 16 bit of the bypass MPLS label are located in the first data field of an Format C LSE. The least-significant 4 bit are located in the second datafield of an Format C LSE. No post-stack data is required. If Format D LSEs are provided, the bypass MPLS label is encoded in the least-significant bits of the first data field of an Format D LSE. The two most-significant bits of the first data field, and the 8 bits of the second data field <span class="bcp14">MUST</span> be set to zero.<a href="#section-2.1-4.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1292,8 +1289,9 @@ appear in all capitals, as shown here.<a href="#section-1.1-2" class="pilcrow">�
 The bypass MPLS label encodes the SID to an alternative egress router.
 The SMEP network action must be placed in the MPLS stack such that the PLR (Point of Local Repair), i.e., the penultimate node, is able to process the network action.
 That means the SMEP network action is only processed by the penultimate node using the select scope.
-On an egress node failure or an egress link failure the penultimate node <span class="bcp14">MUST</span> use the bypass MPLS label to route traffic to an alternative egress router.
-To that end, the data fields in the Format C LSE of the SMEP network actions are concatened to form the 20 bit MPLS label.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+On an egress node failure or an egress link failure, the penultimate node <span class="bcp14">MUST</span> use the bypass MPLS label to route traffic to an alternative egress router.
+To that end, the data fields in the Format C LSE of the SMEP network actions are concatened to form the 20 bit MPLS label.
+If a list of bypass MPLS labels is provided as Format D LSEs, they are prioritized from top-of-stack to the bottom-of-stack.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1439,22 +1437,16 @@ Ingress ───A─── LSR ───B─── LSR ───C─── egre
 </div>
 </section>
 </div>
-<div id="acknowledgments">
-<section id="appendix-A">
-      <h2 id="name-acknowledgments">
-<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
-      </h2>
-<p id="appendix-A-1">TODO acknowledge.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="authors-addresses">
-<section id="appendix-B">
+<section id="appendix-A">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Fabian Ihle</span></div>
 <div dir="auto" class="left"><span class="org">University of Tuebingen</span></div>
+<div dir="auto" class="left"><span class="locality">Tuebingen</span></div>
+<div dir="auto" class="left"><span class="country-name">Germany</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:fabian.ihle@uni-tuebingen.de" class="email">fabian.ihle@uni-tuebingen.de</a>
@@ -1463,6 +1455,8 @@ Ingress ───A─── LSR ───B─── LSR ───C─── egre
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Michael Menth</span></div>
 <div dir="auto" class="left"><span class="org">University of Tuebingen</span></div>
+<div dir="auto" class="left"><span class="locality">Tuebingen</span></div>
+<div dir="auto" class="left"><span class="country-name">Germany</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:michael.menth@uni-tuebingen.de" class="email">michael.menth@uni-tuebingen.de</a>
