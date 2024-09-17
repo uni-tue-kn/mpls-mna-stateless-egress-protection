@@ -1,7 +1,7 @@
 ---
 title: "MNA for Stateless MPLS Egress Protection"
 abbrev: "SMEP"
-category: info
+category: std
 
 docname: draft-ihle-mpls-mna-stateless-egress-protection-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
@@ -26,10 +26,14 @@ author:
  -
     fullname: Fabian Ihle
     organization: University of Tuebingen
+    city: Tuebingen
+    country: Germany
     email: fabian.ihle@uni-tuebingen.de
  -
     fullname: Michael Menth
     organization: University of Tuebingen
+    city: Tuebingen
+    country: Germany
     email: michael.menth@uni-tuebingen.de
 
 normative:
@@ -95,11 +99,11 @@ The network action for stateless MPLS egress protection is encoded as follows:
 
 - Network Action Indication: The SMEP network action is indicated by opcode TBA1.
 
-- Format: The SMEP network action MUST be encoded using a Format C LSE as defined in {{?I-D.ietf-mpls-mna-hdr}}, see {{fig-smep-encoding}}. Optionally, a list of bypass MPLS labels MAY be carried as Format D LSE, see {{fig-smep-encoding_ad}}. In the Format D LSE, the bypass MPLS label is encoded in the least-significant bits of the first data field. The two most-significant bits of the first data field, and the 8 bits of the second data field MUST be set to zero.
+- Format: The SMEP network action MUST be encoded using a Format C LSE as defined in {{?I-D.ietf-mpls-mna-hdr}}, see {{fig-smep-encoding}}. Optionally, a list of bypass MPLS labels MAY be carried as Format D LSE, see {{fig-smep-encoding_ad}}.
 
 - Scope: The SMEP network action is valid only in the select scope.
 
-- Ancillary Data: The SMEP network action requires 20 bits of in-stack ancillary data to encode the bypass MPLS label. The most-significant 16 bit of the bypass MPLS label are located in the first data field of an format C LSE. The least-significant 4 bit are located in the second datafield of an format C LSE. No post-stack data is required.
+- Ancillary Data: The SMEP network action requires 20 bits of in-stack ancillary data to encode the bypass MPLS label. The most-significant 16 bit of the bypass MPLS label are located in the first data field of an Format C LSE. The least-significant 4 bit are located in the second datafield of an Format C LSE. No post-stack data is required. If Format D LSEs are provided, the bypass MPLS label is encoded in the least-significant bits of the first data field of an Format D LSE. The two most-significant bits of the first data field, and the 8 bits of the second data field MUST be set to zero.
 
 ## Processing
 
@@ -107,8 +111,9 @@ The ingress LER that pushes an SR-MPLS label stack onto a packet includes the by
 The bypass MPLS label encodes the SID to an alternative egress router.
 The SMEP network action must be placed in the MPLS stack such that the PLR (Point of Local Repair), i.e., the penultimate node, is able to process the network action.
 That means the SMEP network action is only processed by the penultimate node using the select scope.
-On an egress node failure or an egress link failure the penultimate node MUST use the bypass MPLS label to route traffic to an alternative egress router.
+On an egress node failure or an egress link failure, the penultimate node MUST use the bypass MPLS label to route traffic to an alternative egress router.
 To that end, the data fields in the Format C LSE of the SMEP network actions are concatened to form the 20 bit MPLS label.
+If a list of bypass MPLS labels is provided as Format D LSEs, they are prioritized from top-of-stack to the bottom-of-stack.
 
 # Example
 
@@ -148,8 +153,3 @@ This document requests that IANA allocates a new codepoint with the name "Statel
 
 
 --- back
-
-# Acknowledgments
-{:numbered="false"}
-
-TODO acknowledge.
