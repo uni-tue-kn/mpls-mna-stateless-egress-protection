@@ -8,7 +8,7 @@ Intended status: Standards Track                 University of Tuebingen
 Expires: 21 March 2025                                 17 September 2024
 
 
-                MNA for Stateless MPLS Egress Protection
+              Stateless MNA-based Egress Protection (SMEP)
          draft-ihle-mpls-mna-stateless-egress-protection-latest
 
 Abstract
@@ -20,7 +20,7 @@ Abstract
    mechanism for protecting IP/MPLS services.  To that end backup
    tunnels have to be signaled to the Point of Local Repair (PLR).
 
-   This document defines the encoding for the Stateless MPLS Egress
+   This document defines the encoding for the Stateless MNA-based Egress
    Protection (SMEP) network action.  The SMEP network action protects
    egress routers by providing an alternative MPLS egress label in-
    stack.  For SMEP, no signaling of protection tunnels is required.
@@ -109,13 +109,13 @@ Table of Contents
    Those network actions are processed by all nodes on a path (hop-by-
    hop), by only selected nodes, or on an ingress-to-egress basis.
 
-   This document defines the Stateless MPLS Egress Protection (SMEP)
-   network action.  With SMEP, egress bypass tunnels are carried in a
-   network action in the MPLS stack.  The ingress router pushes the MPLS
-   stack containing the SMEP network action.  On an egress failure, the
-   bypass MPLS label in the network action is used to protect the egress
-   tunnel.  No signaling is required for this approach and no state must
-   be kept in the PLR.
+   This document defines the Stateless MNA-based Egress Protection
+   (SMEP) network action.  With SMEP, egress bypass tunnels are carried
+   in a network action in the MPLS stack.  The ingress router pushes the
+   MPLS stack containing the SMEP network action.  On an egress failure,
+   the bypass MPLS label in the network action is used to protect the
+   egress tunnel.  No signaling is required for this approach and no
+   state must be kept in the PLR.
 
 1.1.  Terminology
 
@@ -151,8 +151,8 @@ Table of Contents
        Figure 2: MNA for Stateless Egress Protection using a list of
                                bypass labels.
 
-   The network action for stateless MPLS egress protection is encoded as
-   follows:
+   The network action for stateless MNA-based egress protection is
+   encoded as follows:
 
    *  Network Action Indication: The SMEP network action is indicated by
       opcode TBA1.
@@ -193,7 +193,7 @@ Table of Contents
 
 3.  Example
 
-   An example topology using MPLS egress protection is shown in
+   An example topology using MNA-based egress protection is shown in
    Figure 3.  Labels A and B are used to forward to the penultimate
    router.  From here, three paths are available to an egress node.
    Labels C, C', and C'' are used to route to one of the egress nodes.
@@ -244,16 +244,17 @@ Table of Contents
 5.  IANA Considerations
 
    This document requests that IANA allocates a new codepoint with the
-   name "Stateless MPLS Egress Protection" in the "Network Action
+   name "Stateless MNA-based Egress Protection" in the "Network Action
    Opcodes Registry".
 
-     +============+==================================+===============+
-     | MNA Opcode | Description                      | Reference     |
-     +============+==================================+===============+
-     | TBA1       | Stateless MPLS Egress Protection | This document |
-     +------------+----------------------------------+---------------+
+    +============+=======================================+===========+
+    | MNA Opcode | Description                           | Reference |
+    +============+=======================================+===========+
+    | TBA1       | Stateless MNA-based Egress Protection | This      |
+    |            |                                       | document  |
+    +------------+---------------------------------------+-----------+
 
-                   Table 1: SMEP Opcode IANA allocation.
+                  Table 1: SMEP Opcode IANA allocation.
 
 6.  References
 
