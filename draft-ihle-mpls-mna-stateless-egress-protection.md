@@ -61,7 +61,7 @@ MPLS egress protection in {{?RFC8679}} establishes bypass tunnels for egress rou
 This is referred to as egress protection.
 The protection mechanism relies on a Point of Local Repair (PLR) to perform local failure detection and local repair.
 Typically, this PLR is the penultimate router.
-When an egress failure occurs, packets are rerouted to an alternate egress router.
+When an egress failure occurs, packets are rerouted to an alternative egress router.
 The PLR must maintain a list of bypass tunnels and the bypass forwarding state on a per-transport-tunnel basis.
 Typically, this is done using context label switching.
 The PLR node maintains the bypass forwarding state, which is a mapping of context labels to bypass tunnels.
@@ -125,10 +125,10 @@ The network action for stateless MNA-based egress protection is encoded as follo
 ## Processing
 
 The ingress LER which pushes an MPLS label stack onto a packet includes the BML in a network action.
-The BML encodes the bypass tunnel to an alternate egress router.
+The BML encodes the bypass tunnel to an alternative egress router.
 The SMEP network action MUST be placed in the MPLS stack such that the PLR (Point of Local Repair), i.e., the penultimate node, is able to process the network action.
 This means that the SMEP network action is only processed by the penultimate node using the select scope.
-On an egress node failure or an egress link failure, the penultimate node MUST use the BML to route traffic to an alternate egress router.
+On an egress node failure or an egress link failure, the penultimate node MUST use the BML to route traffic to an alternative egress router.
 To that end, the PLR pushes the BML from the Format C and D LSEs to the MPLS stack and pops the incoming label.
 A list of BMLs MAY be provided as Format D LSEs to encode a bypass tunnel constructed by Segment Routing.
 
