@@ -46,8 +46,8 @@ informative:
 The MPLS Network Action (MNA) framework provides a general mechanism for the encoding and processing of network actions and their data.
 
 The MPLS Egress Protection Framework specifies a fast reroute framework for protecting IP/MPLS services.
-To that end bypass tunnels have to be signaled to the Point of Local Repair (PLR).
-Further, the PLR must maintain the bypass forwarding state.
+To that, end bypass tunnels have to be signaled to the Point of Local Repair (PLR).
+Further, the PLR must maintain the bypass forwarding state on a per-transport-tunnel basis.
 
 This document defines the encoding for the Stateless MNA-based Egress Protection (SMEP) network action.
 The SMEP network action protects egress routers by providing an alternative MPLS egress label in-stack.
@@ -62,7 +62,7 @@ This is referred to as egress protection.
 The protection mechanism relies on a Point of Local Repair (PLR) to perform local failure detection and local repair.
 Typically, this PLR is the penultimate router.
 When an egress failure occurs, packets are rerouted to an alternative egress router.
-The PLR node maintains the bypass forwarding state, which is a mapping of context labels to bypass tunnels.
+The PLR node maintains the bypass forwarding state, which is a mapping of specific labels to bypass tunnels.
 The bypass tunnels are signaled using existing mechanisms, i.e., via an IGP, or topology-driven label distribution protocols such as LDP.
 
 With the MPLS Network Action (MNA) framework, network actions are encoded in the MPLS stack.
@@ -76,13 +76,16 @@ We call those labels Bypass MPLS Labels (BML).
 The ingress router pushes the MPLS stack containing the SMEP network action.
 On an egress failure, the BML in the network action is used to protect the egress tunnel.
 The PLR node is required to install the MPLS forwarding entries for the bypass tunnels using the BML.
-Beside that, no signaling between the egress node / the protector, and the PLR is required.
+Besides that, no signaling between the egress node / the protector, and the PLR is required.
 The PLR is not required to maintain the state of bypass tunnel mappings.
 
+The egress protection framework defined in {{?RFC8679}} is comprehensive.
+It provides a mechanism for rerouting traffic in the event of an egress failure, and explains how rerouted services and their associated context can be restored.
 The proposed mechanism in this document is largely orthogonal to the MPLS egress protection framework in {{?RFC8679}}.
-The main difference is that with SMEP, no state in the PLR and thus no signaling of bypass tunnels to the PLR is required.
-The concepts defined in {{?RFC8679}} also apply to this concept.
-By using SMEP, the PLR is agnostic to the egress protection schema.
+SMEP provides an alternative to the rerouting mechanism defined for the PLR, allowing the PLR to be stateless.
+As a result, no state information is maintained in the PLR, and there is no need for signaling bypass tunnels to the PLR.
+However, this document does not introduce changes to the signaling procedures that enable the ingress node to set the correct bypass tunnel in the network action.
+The general concepts and mechanisms described in {{?RFC8679}} still apply.
 
 ## Terminology
 
@@ -120,11 +123,11 @@ The network action for stateless MNA-based egress protection is encoded as follo
 
 - Network Action Indication: The SMEP network action is indicated by opcode TBA1.
 
-- Format: The SMEP network action MUST be encoded using a Format C LSE as defined in {{?I-D.ietf-mpls-mna-hdr}}, see {{fig-smep-encoding}}. Optionally, a list of BMLs MAY be carried as Format D LSE, see {{fig-smep-encoding_ad}}.
+- Format: The SMEP network action MUST be encoded using an Format C LSE as defined in {{?I-D.ietf-mpls-mna-hdr}}, see {{fig-smep-encoding}}. Optionally, a list of BMLs MAY be carried as Format D LSE, see {{fig-smep-encoding_ad}}.
 
 - Scope: The SMEP network action is only valid in the select scope.
 
-- Ancillary Data: The SMEP network action requires 20 bits of in-stack ancillary data to encode the BML. The most-significant 16 bit of the BML are located in the first data field of an Format C LSE. The least-significant 4 bit are located in the second datafield of an Format C LSE. If Format D LSEs are provided, the BML is encoded in the least-significant bits of the first data field of an Format D LSE. The two most-significant bits of the first data field, and the 8 bits of the second data field MUST be set to zero. No post-stack data is required.
+- Ancillary Data: The SMEP network action requires 20 bits of in-stack ancillary data to encode the BML. The most-significant 16 bits of the BML are located in the first data field of an Format C LSE. The least-significant 4 bits are located in the second datafield of an Format C LSE. If Format D LSEs are provided, the BML is encoded in the least-significant bits of the first data field of an Format D LSE. The two most-significant bits of the first data field, and the 8 bits of the second data field MUST be set to zero. No post-stack data is required.
 
 ## Processing
 
@@ -169,7 +172,7 @@ The label stack after SMEP is applied is shown in {{fig-example1_stack2}}.
 
 # Security Considerations
 
-The security issues discussed in {{?I-D.ietf-mpls-mna-hdr}} apply to this document.
+The security issues discussed in {{?I-D.ietf-mpls-mna-hdr}} and in {?RFC8679}} apply to this document.
 
 
 # IANA Considerations
