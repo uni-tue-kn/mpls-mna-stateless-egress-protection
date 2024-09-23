@@ -57,13 +57,11 @@ SMEP does not require a bypass forwarding state in PLRs.
 
 # Introduction
 
-MPLS egress protection in {{?RFC8679}} establishes bypass tunnels for egress routers on an egress failure, i.e., on a node or a link failure.
+The MPLS egress protection framework in {{?RFC8679}} establishes bypass tunnels for egress routers on an egress failure, i.e., on a node or a link failure.
 This is referred to as egress protection.
 The protection mechanism relies on a Point of Local Repair (PLR) to perform local failure detection and local repair.
 Typically, this PLR is the penultimate router.
 When an egress failure occurs, packets are rerouted to an alternative egress router.
-The PLR must maintain a list of bypass tunnels and the bypass forwarding state on a per-transport-tunnel basis.
-Typically, this is done using context label switching.
 The PLR node maintains the bypass forwarding state, which is a mapping of context labels to bypass tunnels.
 The bypass tunnels are signaled using existing mechanisms, i.e., via an IGP, or topology-driven label distribution protocols such as LDP.
 
@@ -73,12 +71,18 @@ These network actions are processed by all nodes on a path (hop-by-hop), by only
 
 This document defines the Stateless MNA-based Egress Protection (SMEP) network action.
 With SMEP, egress bypass tunnels are carried in a network action in the MPLS stack.
-The egress bypass tunnel is indicated by an alternative MPLS forwarding label in-stack.
-This is called the BML (BML).
+The egress bypass tunnel is indicated by one or multiple alternative MPLS forwarding labels in-stack.
+We call those labels Bypass MPLS Labels (BML).
 The ingress router pushes the MPLS stack containing the SMEP network action.
 On an egress failure, the BML in the network action is used to protect the egress tunnel.
 The PLR node is required to install the MPLS forwarding entries for the bypass tunnels using the BML.
-Beside that, no additional signaling is required for this approach and no state needs to be maintained in the PLR.
+Beside that, no signaling between the egress node / the protector, and the PLR is required.
+The PLR is not required to maintain the state of bypass tunnel mappings.
+
+The proposed mechanism in this document is largely orthogonal to the MPLS egress protection framework in {{?RFC8679}}.
+The main difference is that with SMEP, no state in the PLR and thus no signaling of bypass tunnels to the PLR is required.
+The concepts defined in {{?RFC8679}} also apply to this concept.
+By using SMEP, the PLR is agnostic to the egress protection schema.
 
 ## Terminology
 
@@ -136,11 +140,11 @@ A list of BMLs MAY be provided as Format D LSEs to encode a bypass tunnel constr
 
 A simple example topology using MNA-based egress protection with an SR bypass tunnel is shown in {{fig-example1}}.
 Labels A and B are used to forward to the penultimate router.
-From here, two paths are available to an egress node.
-Label C is used to route to the egress node, and labels C' and C'' are used to route to the backup egress node.
+From here, one path is available to the egress node, and one path to the protector.
+Label C is used to route to the egress node, and labels C' and C'' are used to route to the protector.
 If the egress link or router C fails, the PLR can use the bypass tunnel of router C' and C''.
 The MPLS stack pushed by the ingress LER that encodes this functionality for the example topology is shown in {{fig-example1_stack}}.
-The Network Action Sub-Stack (NAS) for SMEP contains an Format A LSE to indicate the MNA sub-Stack and an Format B LSE.
+The Network Action Sub-Stack (NAS) for SMEP contains an Format A LSE to indicate the MNA sub-stack and an Format B LSE.
 This is required by {{?I-D.ietf-mpls-mna-hdr}}.
 The Format B LSE can contain arbitrary network actions.
 
