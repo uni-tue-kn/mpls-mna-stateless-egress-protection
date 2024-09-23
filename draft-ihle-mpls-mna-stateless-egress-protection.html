@@ -1220,10 +1220,12 @@ Besides that, no signaling between the egress node / the protector, and the PLR 
 The PLR is not required to maintain the state of bypass tunnel mappings.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">The egress protection framework defined in <span>[<a href="#RFC8679" class="cite xref">RFC8679</a>]</span> is comprehensive.
 It provides a mechanism for rerouting traffic in the event of an egress failure, and explains how rerouted services and their associated context can be restored.
-The proposed mechanism in this document is largely orthogonal to the MPLS egress protection framework in <span>[<a href="#RFC8679" class="cite xref">RFC8679</a>]</span>.
 SMEP provides an alternative to the rerouting mechanism defined for the PLR, allowing the PLR to be stateless.
-As a result, no state information is maintained in the PLR, and there is no need for signaling bypass tunnels to the PLR.
-However, this document does not introduce changes to the signaling procedures that enable the ingress node to set the correct bypass tunnel in the network action.
+Thus, the PLR does not need to maintain a table that maps transport tunnels to backup paths.
+Likewise, the PLR is not involved in the signaling of such information.
+Instead, this information is supplied from the ingress to the PLR in the network action.
+Signaling is only needed between ingress, egress, and the protector, but not with the PLR anymore.
+Details of the signaling are not contained in this draft.
 The general concepts and mechanisms described in <span>[<a href="#RFC8679" class="cite xref">RFC8679</a>]</span> still apply.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <div id="terminology">
 <section id="section-1.1">
