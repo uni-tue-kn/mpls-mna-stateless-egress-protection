@@ -1036,7 +1036,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ihle &amp; Menth</td>
-<td class="center">Expires 24 March 2025</td>
+<td class="center">Expires 27 March 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1049,12 +1049,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ihle-mpls-mna-stateless-egress-protection-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-20" class="published">20 September 2024</time>
+<time datetime="2024-09-23" class="published">23 September 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-24">24 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-03-27">27 March 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1114,7 @@ SMEP does not require a bypass forwarding state in PLRs.<a href="#section-abstra
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 27 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1199,13 +1199,11 @@ SMEP does not require a bypass forwarding state in PLRs.<a href="#section-abstra
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">MPLS egress protection in <span>[<a href="#RFC8679" class="cite xref">RFC8679</a>]</span> establishes bypass tunnels for egress routers on an egress failure, i.e., on a node or a link failure.
+<p id="section-1-1">The MPLS egress protection framework in <span>[<a href="#RFC8679" class="cite xref">RFC8679</a>]</span> establishes bypass tunnels for egress routers on an egress failure, i.e., on a node or a link failure.
 This is referred to as egress protection.
 The protection mechanism relies on a Point of Local Repair (PLR) to perform local failure detection and local repair.
 Typically, this PLR is the penultimate router.
 When an egress failure occurs, packets are rerouted to an alternative egress router.
-The PLR must maintain a list of bypass tunnels and the bypass forwarding state on a per-transport-tunnel basis.
-Typically, this is done using context label switching.
 The PLR node maintains the bypass forwarding state, which is a mapping of context labels to bypass tunnels.
 The bypass tunnels are signaled using existing mechanisms, i.e., via an IGP, or topology-driven label distribution protocols such as LDP.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">With the MPLS Network Action (MNA) framework, network actions are encoded in the MPLS stack.
@@ -1213,12 +1211,17 @@ The bypass tunnels are signaled using existing mechanisms, i.e., via an IGP, or 
 These network actions are processed by all nodes on a path (hop-by-hop), by only selected nodes, or on an ingress-to-egress basis.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This document defines the Stateless MNA-based Egress Protection (SMEP) network action.
 With SMEP, egress bypass tunnels are carried in a network action in the MPLS stack.
-The egress bypass tunnel is indicated by an alternative MPLS forwarding label in-stack.
-This is called the BML (BML).
+The egress bypass tunnel is indicated by one or multiple alternative MPLS forwarding labels in-stack.
+We call those labels Bypass MPLS Labels (BML).
 The ingress router pushes the MPLS stack containing the SMEP network action.
 On an egress failure, the BML in the network action is used to protect the egress tunnel.
 The PLR node is required to install the MPLS forwarding entries for the bypass tunnels using the BML.
-Beside that, no additional signaling is required for this approach and no state needs to be maintained in the PLR.<a href="#section-1-3" class="pilcrow">¶</a></p>
+Beside that, no signaling between the egress node / the protector, and the PLR is required.
+The PLR is not required to maintain the state of bypass tunnel mappings.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">The proposed mechanism in this document is largely orthogonal to the MPLS egress protection framework in <span>[<a href="#RFC8679" class="cite xref">RFC8679</a>]</span>.
+The main difference is that with SMEP, no state in the PLR and thus no signaling of bypass tunnels to the PLR is required.
+The concepts defined in <span>[<a href="#RFC8679" class="cite xref">RFC8679</a>]</span> also apply to this concept.
+By using SMEP, the PLR is agnostic to the egress protection schema.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <div id="terminology">
 <section id="section-1.1">
         <h3 id="name-terminology">
@@ -1351,11 +1354,11 @@ A list of BMLs <span class="bcp14">MAY</span> be provided as Format D LSEs to en
       </h2>
 <p id="section-3-1">A simple example topology using MNA-based egress protection with an SR bypass tunnel is shown in <a href="#fig-example1" class="auto internal xref">Figure 3</a>.
 Labels A and B are used to forward to the penultimate router.
-From here, two paths are available to an egress node.
-Label C is used to route to the egress node, and labels C' and C'' are used to route to the backup egress node.
+From here, one path is available to the egress node, and one path to the protector.
+Label C is used to route to the egress node, and labels C' and C'' are used to route to the protector.
 If the egress link or router C fails, the PLR can use the bypass tunnel of router C' and C''.
 The MPLS stack pushed by the ingress LER that encodes this functionality for the example topology is shown in <a href="#fig-example1_stack" class="auto internal xref">Figure 4</a>.
-The Network Action Sub-Stack (NAS) for SMEP contains an Format A LSE to indicate the MNA sub-Stack and an Format B LSE.
+The Network Action Sub-Stack (NAS) for SMEP contains an Format A LSE to indicate the MNA sub-stack and an Format B LSE.
 This is required by <span>[<a href="#I-D.ietf-mpls-mna-hdr" class="cite xref">I-D.ietf-mpls-mna-hdr</a>]</span>.
 The Format B LSE can contain arbitrary network actions.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">In the example, LSR A and B pop the labels A and B.
