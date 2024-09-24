@@ -174,7 +174,7 @@ The label stack after SMEP is applied is shown in {{fig-example1_stack2}}.
 
 # Security Considerations
 
-The security issues discussed in {{?I-D.ietf-mpls-mna-hdr}} and in {?RFC8679}} apply to this document.
+The security issues discussed in {{?I-D.ietf-mpls-mna-hdr}} and in {{?RFC8679}} apply to this document.
 
 
 # IANA Considerations
