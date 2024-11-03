@@ -179,7 +179,7 @@ The security issues discussed in {{?I-D.ietf-mpls-mna-hdr}} and in {{?RFC8679}} 
 
 # IANA Considerations
 
-This document requests that IANA allocates a new codepoint with the name "Stateless MNA-based Egress Protection" in the "Network Action Opcodes Registry".
+This document requests that IANA allocates a new codepoint with the name "Stateless MNA-based Egress Protection" in the "Network Action Opcodes Registry" introduced in {{?I-D.ietf-mpls-mna-hdr}}.
 
 | MNA Opcode |  Description                      |  Reference
 | ---------- |  -------------------------------- |  -------------------
