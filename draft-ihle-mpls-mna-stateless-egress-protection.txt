@@ -5,7 +5,7 @@
 Multiprotocol Label Switching                                    F. Ihle
 Internet-Draft                                                  M. Menth
 Intended status: Standards Track                 University of Tuebingen
-Expires: 28 March 2025                                 24 September 2024
+Expires: 7 May 2025                                      3 November 2024
 
 
               Stateless MNA-based Egress Protection (SMEP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 March 2025.
+   This Internet-Draft will expire on 7 May 2025.
 
 Copyright Notice
 
@@ -299,7 +299,7 @@ Table of Contents
 
    This document requests that IANA allocates a new codepoint with the
    name "Stateless MNA-based Egress Protection" in the "Network Action
-   Opcodes Registry".
+   Opcodes Registry" introduced in [I-D.ietf-mpls-mna-hdr].
 
     +============+=======================================+===========+
     | MNA Opcode | Description                           | Reference |
