@@ -100,7 +100,7 @@ Further abbreviations used in this document:
 
 | Abbreviation |  Meaning                      |  Reference
 | ---------- |  -------------------------------- |  -------------------
-|    BML    |  BML |  This document
+|    BML    |  Bypass MPLS Label |  This document
 |    SMEP    |  Stateless MNA-based Egress Protection |  This document
 {: #table_abbrev title="Abbreviations."}
 
