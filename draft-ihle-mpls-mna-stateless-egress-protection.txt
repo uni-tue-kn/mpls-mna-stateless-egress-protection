@@ -5,7 +5,7 @@
 Multiprotocol Label Switching                                    F. Ihle
 Internet-Draft                                                  M. Menth
 Intended status: Standards Track                 University of Tuebingen
-Expires: 7 May 2025                                      3 November 2024
+Expires: 9 May 2025                                      5 November 2024
 
 
               Stateless MNA-based Egress Protection (SMEP)
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 May 2025.
+   This Internet-Draft will expire on 9 May 2025.
 
 Copyright Notice
 
@@ -157,7 +157,7 @@ Table of Contents
           +==============+=====================+===============+
           | Abbreviation | Meaning             | Reference     |
           +==============+=====================+===============+
-          | BML          | BML                 | This document |
+          | BML          | Bypass MPLS Label   | This document |
           +--------------+---------------------+---------------+
           | SMEP         | Stateless MNA-based | This document |
           |              | Egress Protection   |               |
