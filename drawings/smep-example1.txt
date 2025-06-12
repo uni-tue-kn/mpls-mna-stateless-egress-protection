@@ -1,6 +1,5 @@
-                                  
-                                /--C'-- LSR ---C''--- egress C''
-                               /         C'
-                            LSR                
-Ingress ───A─── LSR ───B───  B  ───C─── egress C
-  LER            A         (PLR)                 
+                                /--L3'-- LSR ---L3''--- egress R3''
+                               /         R3'
+                              LSR                
+Ingress ───L1─── LSR ───L2───  R2  ───L3─── egress R3
+  LER            R1          (PLR)                 
