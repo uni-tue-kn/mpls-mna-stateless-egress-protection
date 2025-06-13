@@ -91,7 +91,7 @@ Signaling is only needed between ingress, egress, and the protector, but not wit
 Details of the signaling are not contained in this draft.
 The general concepts and mechanisms described in {{?RFC8679}} still apply.
 
-# Stack Management with POP-N-LSE Operation Network Action
+# Stack Management with POP-N-LSE Operation Network Action for SMEP
 The MPLS Network Action (MNA) framework encodes network actions and their data for processing by MPLS nodes.
 {{?I-D.ietf-mpls-mna-hdr}} defines the encoding of such network actions and their data in so-called Network Action Substacks (NAS) in the MPLS stack.
 
@@ -127,7 +127,7 @@ If the egress link or router R3 fails, the PLR can use the bypass tunnel of rout
 ~~~~
 {::include ./drawings/smep-example1_stack.txt}
 ~~~~
-{: #fig-smep-example1_stack title="MPLS stack at R1."}
+{: #fig-smep-example1_stack title="MPLS stack pushed by the ingress LER."}
 
 If there is no egress failure, the LSR R2 executes the POP-N-LSE action with `POP-N = 2` and pops the BMLs L3' and L3''.
 R2 pops the top-of-stack label L3 and forwards the packet as usual to the egress.
@@ -141,7 +141,7 @@ The packet is forwarded according to those labels to the alternative egress node
 ~~~~
 {::include ./drawings/smep-example1_stack2.txt}
 ~~~~
-{: #fig-example1_stack2 title="MPLS stack after R3 on egress failure."}
+{: #fig-example1_stack2 title="MPLS stack at the PLR on egress failure."}
 
 # Security Considerations
 
