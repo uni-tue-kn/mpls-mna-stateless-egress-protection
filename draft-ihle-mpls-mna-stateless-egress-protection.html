@@ -1056,7 +1056,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ihle &amp; Menth</td>
-<td class="center">Expires 14 December 2025</td>
+<td class="center">Expires 15 December 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ihle-mpls-mna-stateless-egress-protection-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-06-12" class="published">12 June 2025</time>
+<time datetime="2025-06-13" class="published">13 June 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-12-14">14 December 2025</time></dd>
+<dd class="expires"><time datetime="2025-12-15">15 December 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ An example for the application of SMEP is given using a MPLS network action for 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 15 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1180,7 +1180,7 @@ An example for the application of SMEP is given using a MPLS network action for 
             <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-concept-of-smep" class="internal xref">Concept of SMEP</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-stack-management-with-pop-n" class="internal xref">Stack Management with POP-N-LSE Operation Network Action</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-stack-management-with-pop-n" class="internal xref">Stack Management with POP-N-LSE Operation Network Action for SMEP</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-example" class="internal xref">Example</a></p>
@@ -1289,10 +1289,10 @@ Details of the signaling are not contained in this draft.
 The general concepts and mechanisms described in <span>[<a href="#RFC8679" class="cite xref">RFC8679</a>]</span> still apply.<a href="#section-2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="stack-management-with-pop-n-lse-operation-network-action">
+<div id="stack-management-with-pop-n-lse-operation-network-action-for-smep">
 <section id="section-3">
       <h2 id="name-stack-management-with-pop-n">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-stack-management-with-pop-n" class="section-name selfRef">Stack Management with POP-N-LSE Operation Network Action</a>
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-stack-management-with-pop-n" class="section-name selfRef">Stack Management with POP-N-LSE Operation Network Action for SMEP</a>
       </h2>
 <p id="section-3-1">The MPLS Network Action (MNA) framework encodes network actions and their data for processing by MPLS nodes.
 <span>[<a href="#I-D.ietf-mpls-mna-hdr" class="cite xref">I-D.ietf-mpls-mna-hdr</a>]</span> defines the encoding of such network actions and their data in so-called Network Action Substacks (NAS) in the MPLS stack.<a href="#section-3-1" class="pilcrow">¶</a></p>
@@ -1355,7 +1355,7 @@ Ingress ───L1─── LSR ───L2───  R2  ───L3─── 
 <a href="#name-example-using-the-pop-n-lse" class="selfRef">Example using the POP-N-LSE operation for SMEP.</a>
         </figcaption></figure>
 </div>
-<span id="name-mpls-stack-at-r1"></span><div id="fig-smep-example1_stack">
+<span id="name-mpls-stack-pushed-by-the-in"></span><div id="fig-smep-example1_stack">
 <figure id="figure-2">
         <div class="alignLeft art-text artwork" id="section-4-4.1">
 <pre>
@@ -1379,7 +1379,7 @@ Ingress ───L1─── LSR ───L2───  R2  ───L3─── 
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
-<a href="#name-mpls-stack-at-r1" class="selfRef">MPLS stack at R1.</a>
+<a href="#name-mpls-stack-pushed-by-the-in" class="selfRef">MPLS stack pushed by the ingress LER.</a>
         </figcaption></figure>
 </div>
 <p id="section-4-5">If there is no egress failure, the LSR R2 executes the POP-N-LSE action with <code>POP-N = 2</code> and pops the BMLs L3' and L3''.
@@ -1389,7 +1389,7 @@ The POP-N-LSE action is ignored and the NAS is popped along with the top-of-stac
 This stack is shown in <a href="#fig-smep" class="auto internal xref">Figure 1</a>.
 This time, the BMLs L3' and L3'' are at the top-of-stack.
 The packet is forwarded according to those labels to the alternative egress node R3''.<a href="#section-4-6" class="pilcrow">¶</a></p>
-<span id="name-mpls-stack-after-r3-on-egre"></span><div id="fig-example1_stack2">
+<span id="name-mpls-stack-at-the-plr-on-eg"></span><div id="fig-example1_stack2">
 <figure id="figure-3">
         <div class="alignLeft art-text artwork" id="section-4-7.1">
 <pre>
@@ -1403,7 +1403,7 @@ The packet is forwarded according to those labels to the alternative egress node
 </pre>
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
-<a href="#name-mpls-stack-after-r3-on-egre" class="selfRef">MPLS stack after R3 on egress failure.</a>
+<a href="#name-mpls-stack-at-the-plr-on-eg" class="selfRef">MPLS stack at the PLR on egress failure.</a>
         </figcaption></figure>
 </div>
 </section>
@@ -1458,7 +1458,7 @@ The packet is forwarded according to those labels to the alternative egress node
 <dd class="break"></dd>
 <dt id="I-D.ihle-mpls-mna-stack-management-00">[I-D.ihle-mpls-mna-stack-management-00]</dt>
         <dd>
-<span class="refTitle">"*** BROKEN REFERENCE ***"</span>. </dd>
+<span class="refAuthor">Ihle, F.</span> and <span class="refAuthor">M. Menth</span>, <span class="refTitle">"MPLS Network Action for Stack Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ihle-mpls-mna-stack-management-00</span>, <time datetime="2025-06-13" class="refDate">13 June 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ihle-mpls-mna-stack-management-00">https://datatracker.ietf.org/doc/html/draft-ihle-mpls-mna-stack-management-00</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8679">[RFC8679]</dt>
       <dd>

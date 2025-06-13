@@ -5,7 +5,7 @@
 Multiprotocol Label Switching                                    F. Ihle
 Internet-Draft                                                  M. Menth
 Intended status: Standards Track                 University of Tuebingen
-Expires: 14 December 2025                                   12 June 2025
+Expires: 15 December 2025                                   13 June 2025
 
 
               Stateless MNA-based Egress Protection (SMEP)
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 December 2025.
+   This Internet-Draft will expire on 15 December 2025.
 
 Copyright Notice
 
@@ -79,7 +79,8 @@ Table of Contents
      1.1.  Terminology
        1.1.1.  Abbreviations
    2.  Concept of SMEP
-   3.  Stack Management with POP-N-LSE Operation Network Action
+   3.  Stack Management with POP-N-LSE Operation Network Action for
+           SMEP
    4.  Example
    5.  Security Considerations
    6.  IANA Considerations
@@ -148,7 +149,7 @@ Table of Contents
    Details of the signaling are not contained in this draft.  The
    general concepts and mechanisms described in [RFC8679] still apply.
 
-3.  Stack Management with POP-N-LSE Operation Network Action
+3.  Stack Management with POP-N-LSE Operation Network Action for SMEP
 
    The MPLS Network Action (MNA) framework encodes network actions and
    their data for processing by MPLS nodes.  [I-D.ietf-mpls-mna-hdr]
@@ -219,7 +220,7 @@ Table of Contents
    |      MPLS-Label = L3''                | TC  |S|    TTL        |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-                        Figure 2: MPLS stack at R1.
+              Figure 2: MPLS stack pushed by the ingress LER.
 
    If there is no egress failure, the LSR R2 executes the POP-N-LSE
    action with POP-N = 2 and pops the BMLs L3' and L3''.  R2 pops the
@@ -239,7 +240,7 @@ Table of Contents
    |      MPLS-Label = L3''                | TC  |S|    TTL        |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-              Figure 3: MPLS stack after R3 on egress failure.
+             Figure 3: MPLS stack at the PLR on egress failure.
 
 5.  Security Considerations
 
@@ -273,7 +274,11 @@ Table of Contents
               draft-ietf-mpls-mna-hdr-12>.
 
    [I-D.ihle-mpls-mna-stack-management-00]
-              "*** BROKEN REFERENCE ***".
+              Ihle, F. and M. Menth, "MPLS Network Action for Stack
+              Management", Work in Progress, Internet-Draft, draft-ihle-
+              mpls-mna-stack-management-00, 13 June 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ihle-mpls-
+              mna-stack-management-00>.
 
    [RFC8679]  Shen, Y., Jeganathan, M., Decraene, B., Gredler, H.,
               Michel, C., and H. Chen, "MPLS Egress Protection
